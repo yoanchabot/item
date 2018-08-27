@@ -23,9 +23,6 @@ onready var sprite = get_node("Sprite")
 var last_anim = ""
 onready var anim = get_node("anim")
 
-#Variables de jeu
-var score = 0
-
 func _ready():
 	move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED
 	dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED
@@ -97,8 +94,8 @@ func get_center_pos():
 	return position + get_node("CollisionPolygon2D").position
 	
 func collectCoin():
-	score += 1
-	var message = 'I have ' + str(score) + ' coins!'
+	get_node("/root/Global").gemCounter += 1
+	var message = 'I have ' + str(get_node("/root/Global").gemCounter) + ' coins!'
 	get_node('labelDialog').set_text(message)
 	get_node('timerDialog').start()
 
