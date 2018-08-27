@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Gem.gd" type="Script" id=1]
+[ext_resource path="res://assets/atlas/atlas.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 6.0
+height = 4.72
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "Idle"
+length = 1.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 1, 1, 13, 11 ), Rect2( 18, 1, 13, 11 ), Rect2( 35, 1, 13, 11 ), Rect2( 52, 1, 13, 11 ), Rect2( 69, 1, 13, 11 ) ]
+}
+
+[node name="Gem" type="Area2D" groups=[
+"Gem",
+]]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+position = Vector2( 0, -0.986843 )
+scale = Vector2( 0.888889, 0.615039 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="." index="1"]
+
+texture = ExtResource( 2 )
+vframes = 12
+hframes = 34
+frame = 7
+region_enabled = true
+region_rect = Rect2( 18, 1, 13, 11 )
+_sections_unfolded = [ "Animation", "Offset", "Region" ]
+
+[node name="anim" type="AnimationPlayer" parent="." index="2"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/Idle = SubResource( 2 )
+blend_times = [  ]
+
+[connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
+
+
